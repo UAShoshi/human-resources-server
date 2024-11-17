@@ -30,6 +30,7 @@ async function run() {
     const hrServicesCollection = client.db("humanResourcesBD").collection('hrServices');
     const reviewsCollection = client.db("humanResourcesBD").collection('reviews');
     const featuresCollection = client.db("humanResourcesBD").collection('features');
+    const workEntriesCollection = client.db("humanResourcesBD").collection('workEntries');
 
 
     // hrServices releted apis
@@ -49,6 +50,18 @@ async function run() {
     // reviews releted apis
     app.get('/features', async (req, res) => {
       const result = await featuresCollection.find().toArray();
+      res.send(result);
+    })
+
+    // workEntries releted apis
+    app.get('/workEntries', async (req, res) => {
+      const result = await workEntriesCollection.find().toArray();
+      res.send(result);
+    })
+
+    app.post('/workEntries', async (req, res) => {
+      const item = req.body;
+      const result = await workEntriesCollection.insertOne(item);
       res.send(result);
     })
 
